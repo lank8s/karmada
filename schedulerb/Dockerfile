@@ -3,7 +3,7 @@
 
 FROM alpine:3.18.5
 
-ADD schedulerb /usr/local/bin/
+ADD karmada-schedulerb /usr/local/bin/
 
 #EXPOSE 2379 2380
 
