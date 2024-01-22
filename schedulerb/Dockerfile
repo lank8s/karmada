@@ -3,9 +3,9 @@
 
 FROM alpine:3.18.5
 
-ADD karmada-schedulerb /usr/local/bin/
+ADD karmada-schedulerb /bin/
 
 #EXPOSE 2379 2380
 
 # Define default command.
-CMD ["/usr/local/bin/schedulerb"]
+CMD ["/bin/karmada-schedulerb"]
