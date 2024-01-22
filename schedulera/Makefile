@@ -1,5 +1,5 @@
 build:
-	CGO_ENABLED=0 GOOS=linux go build -tags netgo 
+	CGO_ENABLED=0 GOOS=linux go build  -tags netgo 
 	mv schedulera karmada-scheduler
 	docker build -t ghcr.io/liangyuanpeng/karmada-schedulera:latest .
 	docker build -t ghcr.io/liangyuanpeng/karmada-schedulera:test .
