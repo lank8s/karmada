@@ -8,4 +8,4 @@ ADD karmada-schedulerb /bin/
 #EXPOSE 2379 2380
 
 # Define default command.
-CMD ["/bin/karmada-schedulerb"]
+ENTRYPOINT ["/bin/karmada-schedulerb"]
