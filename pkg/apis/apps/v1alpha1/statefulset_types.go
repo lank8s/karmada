@@ -38,12 +38,14 @@ type CrossClusterStatefulSet struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
+	// +required
 	// Spec is the desired state of the CrossClusterStatefulSet.
 	Spec CrossClusterStatefulSetSpec `json:"spec,omitempty"`
 }
 
 // CrossClusterStatefulSetSpec is the desired state of the CrossClusterService.
 type CrossClusterStatefulSetSpec struct {
+	// +required
 	ResourceSelector policy.ResourceSelector `json:"resourceSelector,omitempty"`
 }
 
