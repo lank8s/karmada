@@ -125,7 +125,7 @@ register-gen \
 register-gen \
   --go-header-file hack/boilerplate/boilerplate.go.txt \
   --input-dirs=github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1 \
-  --output-package=github.com/karmada-io/karmada/pkg/apps/policy/v1alpha1 \
+  --output-package=github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1 \
   --output-file-base=zz_generated.register
 register-gen \
   --go-header-file hack/boilerplate/boilerplate.go.txt \
