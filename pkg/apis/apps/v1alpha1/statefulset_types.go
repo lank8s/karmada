@@ -38,8 +38,7 @@ type CrossClusterStatefulSet struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	// Spec is the desired state of the CrossClusterIngress.
-	// +optional
+	// Spec is the desired state of the CrossClusterStatefulSet.
 	Spec CrossClusterStatefulSetSpec `json:"spec,omitempty"`
 }
 
