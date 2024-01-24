@@ -17,12 +17,11 @@ limitations under the License.
 package v1alpha1
 
 import (
-	policy "github.com/karmada-io/karmada/pkg/apis/policy/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
-	// ResourceKindCrossClusterService is kind name of CrossClusterService.
+	// ResourceKindCrossClusterStatefulset is kind name of CrossClusterStatefulset.
 	ResourceKindCrossClusterStatefulset            = "CrossClusterStatefulset"
 	ResourceSingularCrossClusterStatefulset        = "CrossClusterstatefulset"
 	ResourcePluralCrossClusterStatefulset          = "CrossClusterStatefulsets"
@@ -31,9 +30,8 @@ const (
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:subresource:status
-// +kubebuilder:resource:shortName=ksts,categories={karmada-io}
 
+// Asdasd +kubebuilder:resource:shortName=ksts,categories={karmada-io}
 type CrossClusterStatefulSet struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -45,8 +43,10 @@ type CrossClusterStatefulSet struct {
 
 // CrossClusterStatefulSetSpec is the desired state of the CrossClusterService.
 type CrossClusterStatefulSetSpec struct {
+	// asd+required
+	// ResourceSelector policy.ResourceSelector `json:"resourceSelector,omitempty"`
 	// +required
-	ResourceSelector policy.ResourceSelector `json:"resourceSelector,omitempty"`
+	Hello string `json:"hello"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
