@@ -42,7 +42,10 @@ cleanup
 
 source "${REPO_ROOT}"/hack/util.sh
 util:create_gopath_tree "${REPO_ROOT}" "${go_path}"
+util:create_gopath_tree "${REPO_ROOT}" "/home/runner/work/lanactions/lanactions/karmada/_mygo"
 export GOPATH="${go_path}"
+
+echo "GOPATH:"$GOPATH
 
 echo "Generating with deepcopy-gen"
 deepcopy-gen \
