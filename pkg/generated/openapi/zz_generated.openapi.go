@@ -3472,6 +3472,13 @@ func schema_pkg_apis_policy_v1alpha1_ClusterQuotaStatus(ref common.ReferenceCall
 							Format:      "",
 						},
 					},
+					"clusterName2": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
 					"hard": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/",
@@ -3503,7 +3510,7 @@ func schema_pkg_apis_policy_v1alpha1_ClusterQuotaStatus(ref common.ReferenceCall
 						},
 					},
 				},
-				Required: []string{"clusterName"},
+				Required: []string{"clusterName", "clusterName2"},
 			},
 		},
 		Dependencies: []string{

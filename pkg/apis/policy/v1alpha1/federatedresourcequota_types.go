@@ -109,7 +109,8 @@ type FederatedResourceQuotaStatus struct {
 type ClusterQuotaStatus struct {
 	// ClusterName is the name of the cluster the limits enforce to.
 	// +required
-	ClusterName string `json:"clusterName"`
+	ClusterName  string `json:"clusterName"`
+	ClusterName2 string `json:"clusterName2"`
 
 	corev1.ResourceQuotaStatus `json:",inline"`
 }
