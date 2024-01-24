@@ -31,7 +31,7 @@ type AppsV1alpha1Interface interface {
 	CrossClusterStatefulSetsGetter
 }
 
-// AppsV1alpha1Client is used to interact with features provided by the apps group.
+// AppsV1alpha1Client is used to interact with features provided by the apps.karmada.io group.
 type AppsV1alpha1Client struct {
 	restClient rest.Interface
 }

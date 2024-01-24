@@ -33,6 +33,9 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
+		"github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSet":                       schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSet(ref),
+		"github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSetList":                   schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSetList(ref),
+		"github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSetSpec":                   schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSetSpec(ref),
 		"github.com/karmada-io/karmada/pkg/apis/autoscaling/v1alpha1.CronFederatedHPA":                       schema_pkg_apis_autoscaling_v1alpha1_CronFederatedHPA(ref),
 		"github.com/karmada-io/karmada/pkg/apis/autoscaling/v1alpha1.CronFederatedHPAList":                   schema_pkg_apis_autoscaling_v1alpha1_CronFederatedHPAList(ref),
 		"github.com/karmada-io/karmada/pkg/apis/autoscaling/v1alpha1.CronFederatedHPARule":                   schema_pkg_apis_autoscaling_v1alpha1_CronFederatedHPARule(ref),
@@ -535,6 +538,119 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/metrics/pkg/apis/metrics/v1beta1.NodeMetricsList":                                            schema_pkg_apis_metrics_v1beta1_NodeMetricsList(ref),
 		"k8s.io/metrics/pkg/apis/metrics/v1beta1.PodMetrics":                                                 schema_pkg_apis_metrics_v1beta1_PodMetrics(ref),
 		"k8s.io/metrics/pkg/apis/metrics/v1beta1.PodMetricsList":                                             schema_pkg_apis_metrics_v1beta1_PodMetricsList(ref),
+	}
+}
+
+func schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSet(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CrossClusterStatefulSet asd +kubebuilder:resource:shortName=ksts,categories={karmada-io}",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Spec is the desired state of the CrossClusterStatefulSet.",
+							Default:     map[string]interface{}{},
+							Ref:         ref("github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSetSpec"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSetSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSetList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CrossClusterStatefulSetList contains a list of CrossClusterStatefulSet.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSet"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1.CrossClusterStatefulSet", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
+func schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSetSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CrossClusterStatefulSetSpec is the desired state of the CrossClusterService.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"hello": {
+						SchemaProps: spec.SchemaProps{
+							Description: "asd+required ResourceSelector policy.ResourceSelector `json:\"resourceSelector,omitempty\"`",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"hello"},
+			},
+		},
 	}
 }
 
