@@ -26,6 +26,7 @@ import (
 	"k8s.io/kube-openapi/pkg/validation/spec"
 
 	"github.com/karmada-io/karmada/hack/tools/swagger/lib"
+	appsv1alpha1 "github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1"
 	autoscalingv1alpha1 "github.com/karmada-io/karmada/pkg/apis/autoscaling/v1alpha1"
 	clusterv1alpha1 "github.com/karmada-io/karmada/pkg/apis/cluster/v1alpha1"
 	configv1alpha1 "github.com/karmada-io/karmada/pkg/apis/config/v1alpha1"
@@ -63,9 +64,9 @@ func main() {
 		networkingv1alpha1.SchemeGroupVersion.WithResource(networkingv1alpha1.ResourcePluralMultiClusterService),
 		networkingv1alpha1.SchemeGroupVersion.WithResource(networkingv1alpha1.ResourceSingularMultiClusterService), meta.RESTScopeRoot)
 
-	mapper.AddSpecific(networkingv1alpha1.SchemeGroupVersion.WithKind(policyv1alpha1.ResourceKindMultiClusterStatefulset),
-		networkingv1alpha1.SchemeGroupVersion.WithResource(policyv1alpha1.ResourcePluralMultiClusterStatefulset),
-		networkingv1alpha1.SchemeGroupVersion.WithResource(policyv1alpha1.ResourceSingularMultiClusterStatefulset), meta.RESTScopeRoot)
+	mapper.AddSpecific(networkingv1alpha1.SchemeGroupVersion.WithKind(appsv1alpha1.ResourceKindCrossClusterStatefulset),
+		networkingv1alpha1.SchemeGroupVersion.WithResource(appsv1alpha1.ResourcePluralCrossClusterStatefulset),
+		networkingv1alpha1.SchemeGroupVersion.WithResource(appsv1alpha1.ResourceSingularCrossClusterStatefulset), meta.RESTScopeRoot)
 
 	mapper.AddSpecific(policyv1alpha1.SchemeGroupVersion.WithKind(policyv1alpha1.ResourceKindPropagationPolicy),
 		policyv1alpha1.SchemeGroupVersion.WithResource(policyv1alpha1.ResourcePluralPropagationPolicy),
@@ -138,7 +139,7 @@ func main() {
 			{GVR: policyv1alpha1.SchemeGroupVersion.WithResource(policyv1alpha1.ResourcePluralClusterOverridePolicy), NamespaceScoped: policyv1alpha1.ResourceNamespaceScopedClusterOverridePolicy},
 			{GVR: policyv1alpha1.SchemeGroupVersion.WithResource(policyv1alpha1.ResourcePluralFederatedResourceQuota), NamespaceScoped: policyv1alpha1.ResourceNamespaceScopedFederatedResourceQuota},
 
-			{GVR: policyv1alpha1.SchemeGroupVersion.WithResource(policyv1alpha1.ResourcePluralMultiClusterStatefulset), NamespaceScoped: policyv1alpha1.ResourceNamespaceScopedMultiClusterStatefulset},
+			{GVR: policyv1alpha1.SchemeGroupVersion.WithResource(appsv1alpha1.ResourcePluralCrossClusterStatefulset), NamespaceScoped: appsv1alpha1.ResourceNamespaceScopedCrossClusterStatefulset},
 
 			{GVR: workv1alpha1.SchemeGroupVersion.WithResource(workv1alpha1.ResourcePluralWork), NamespaceScoped: workv1alpha1.ResourceNamespaceScopedWork},
 			{GVR: workv1alpha2.SchemeGroupVersion.WithResource(workv1alpha2.ResourcePluralResourceBinding), NamespaceScoped: workv1alpha2.ResourceNamespaceScopedResourceBinding},
