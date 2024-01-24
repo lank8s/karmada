@@ -639,18 +639,18 @@ func schema_pkg_apis_apps_v1alpha1_CrossClusterStatefulSetSpec(ref common.Refere
 				Description: "CrossClusterStatefulSetSpec is the desired state of the CrossClusterService.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"hello": {
+					"resourceSelector": {
 						SchemaProps: spec.SchemaProps{
-							Description: "asd+required ResourceSelector policy.ResourceSelector `json:\"resourceSelector,omitempty\"`",
-							Default:     "",
-							Type:        []string{"string"},
-							Format:      "",
+							Description: "asd+required",
+							Default:     map[string]interface{}{},
+							Ref:         ref("github.com/karmada-io/karmada/pkg/apis/policy/v1alpha1.ResourceSelector"),
 						},
 					},
 				},
-				Required: []string{"hello"},
 			},
 		},
+		Dependencies: []string{
+			"github.com/karmada-io/karmada/pkg/apis/policy/v1alpha1.ResourceSelector"},
 	}
 }
 

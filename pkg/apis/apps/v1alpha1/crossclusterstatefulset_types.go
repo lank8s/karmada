@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	policyv1alpha1 "github.com/karmada-io/karmada/pkg/apis/policy/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -44,9 +45,7 @@ type CrossClusterStatefulSet struct {
 // CrossClusterStatefulSetSpec is the desired state of the CrossClusterService.
 type CrossClusterStatefulSetSpec struct {
 	// asd+required
-	// ResourceSelector policy.ResourceSelector `json:"resourceSelector,omitempty"`
-	// +required
-	Hello string `json:"hello"`
+	ResourceSelector policyv1alpha1.ResourceSelector `json:"resourceSelector,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
