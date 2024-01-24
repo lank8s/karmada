@@ -18,11 +18,8 @@ package crossclusterstatefulset
 
 import (
 	"context"
-	"math"
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/tools/record"
 	"k8s.io/klog/v2"
 	controllerruntime "sigs.k8s.io/controller-runtime"
@@ -34,10 +31,8 @@ import (
 
 	appsv1alpha1 "github.com/karmada-io/karmada/pkg/apis/apps/v1alpha1"
 	workv1alpha2 "github.com/karmada-io/karmada/pkg/apis/work/v1alpha2"
-	"github.com/karmada-io/karmada/pkg/features"
 	"github.com/karmada-io/karmada/pkg/resourceinterpreter"
 	"github.com/karmada-io/karmada/pkg/sharedcli/ratelimiterflag"
-	"github.com/karmada-io/karmada/pkg/util/helper"
 )
 
 // RBApplicationFailoverControllerName is the controller name that will be used when reporting events.
@@ -52,11 +47,8 @@ type CrossClusterStatefulSetController struct {
 	ResourceInterpreter resourceinterpreter.ResourceInterpreter
 }
 
-// Reconcile performs a full reconciliation for the object referred to by the Request.
-// The Controller will requeue the Request to be processed again if an error is non-nil or
-// Result.Requeue is true, otherwise upon completion it will remove the work from the queue.
 func (c *CrossClusterStatefulSetController) Reconcile(ctx context.Context, req controllerruntime.Request) (controllerruntime.Result, error) {
-	klog.V(4).Infof("Reconciling ResourceBinding %s.", req.NamespacedName.String())
+	klog.V(4).Infof("Reconciling CrossClusterStatefulSet %s.", req.NamespacedName.String())
 
 	binding := &workv1alpha2.ResourceBinding{}
 	if err := c.Client.Get(ctx, req.NamespacedName, binding); err != nil {
@@ -68,43 +60,9 @@ func (c *CrossClusterStatefulSetController) Reconcile(ctx context.Context, req c
 	return controllerruntime.Result{}, nil
 }
 
-func (c *CrossClusterStatefulSetController) detectFailure(clusters []string, tolerationSeconds *int32, key types.NamespacedName) (int32, []string) {
-	var needEvictClusters []string
-	duration := int32(math.MaxInt32)
-
-	if duration == int32(math.MaxInt32) {
-		duration = 0
-	}
-	return duration, needEvictClusters
-}
-
-func (c *CrossClusterStatefulSetController) evictBinding(binding *workv1alpha2.ResourceBinding, clusters []string) error {
-	return nil
-}
-
-func (c *CrossClusterStatefulSetController) updateBinding(binding *workv1alpha2.ResourceBinding, allClusters sets.Set[string], needEvictClusters []string) error {
-	if err := c.Update(context.TODO(), binding); err != nil {
-		for _, cluster := range needEvictClusters {
-			helper.EmitClusterEvictionEventForResourceBinding(binding, cluster, c.EventRecorder, err)
-		}
-		klog.ErrorS(err, "Failed to update binding", "binding", klog.KObj(binding))
-		return err
-	}
-	for _, cluster := range needEvictClusters {
-		allClusters.Delete(cluster)
-	}
-	if !features.FeatureGate.Enabled(features.GracefulEviction) {
-		for _, cluster := range needEvictClusters {
-			helper.EmitClusterEvictionEventForResourceBinding(binding, cluster, c.EventRecorder, nil)
-		}
-	}
-
-	return nil
-}
-
 // SetupWithManager creates a controller and register to controller manager.
 func (c *CrossClusterStatefulSetController) SetupWithManager(mgr controllerruntime.Manager) error {
-	resourceBindingPredicateFn := predicate.Funcs{
+	resourcePredicateFn := predicate.Funcs{
 		CreateFunc: func(createEvent event.CreateEvent) bool {
 			return true
 		},
@@ -118,7 +76,7 @@ func (c *CrossClusterStatefulSetController) SetupWithManager(mgr controllerrunti
 	}
 
 	return controllerruntime.NewControllerManagedBy(mgr).
-		For(&appsv1alpha1.CrossClusterStatefulSet{}, builder.WithPredicates(resourceBindingPredicateFn)).
+		For(&appsv1alpha1.CrossClusterStatefulSet{}, builder.WithPredicates(resourcePredicateFn)).
 		WithOptions(controller.Options{RateLimiter: ratelimiterflag.DefaultControllerRateLimiter(c.RateLimiterOptions)}).
 		Complete(c)
 }
